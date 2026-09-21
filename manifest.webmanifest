@@ -1,0 +1,9 @@
+{
+  "name": "AISB26 Personal Planner",
+  "short_name": "AISB26",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#09080d",
+  "theme_color": "#09080d",
+  "description": "Personal planner for AI Summit Barcelona 2026."
+}
