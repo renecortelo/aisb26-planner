@@ -11,6 +11,9 @@ Responsive, offline-ready personal planner for **AI Summit Barcelona 2026 (22–
 - favorites and custom agenda stored locally
 - overlap warning when adding conflicting sessions
 - “Ahora” mode during the event
+- type-of-session filter
+- clearly highlighted recommendation for each concurrent time slot
+- in-app session summaries, expandable speaker bios, social links, and photos
 - installable/offline PWA
 
 ## Publish with GitHub Pages
@@ -20,7 +23,7 @@ Responsive, offline-ready personal planner for **AI Summit Barcelona 2026 (22–
 4. If GitHub asks for it, open **Settings → Pages → Source** and select **GitHub Actions**.
 
 ## Data source
-Schedule metadata was compiled from the official AI Summit Barcelona 2026 schedule on 21 Sep 2026. The app links back to the official schedule for the full editorial session descriptions and final speaker roster.
+Schedule metadata was compiled from the official AI Summit Barcelona 2026 schedule on 21 Sep 2026. The app includes original Spanish summaries of the official session descriptions, speaker roles, summarized biographies, social links, and official speaker photos where available. The official schedule is linked once in the header.
 
 ## Notes
 The relevance ranking is a personal planning aid, not an official event ranking.

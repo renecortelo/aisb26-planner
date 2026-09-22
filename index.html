@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#09080d" />
+  <meta name="theme-color" content="#0c0b0a" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="AISB26 Planner" />
-  <meta name="description" content="Personal agenda planner for AI Summit Barcelona 2026." />
+  <meta name="description" content="Agenda personal de @renecortelo para AI Summit Barcelona 2026." />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="stylesheet" href="styles.css" />
   <title>AISB26 · Personal Planner</title>
@@ -20,21 +20,22 @@
       <a class="official" href="https://aisummitbarcelona.com/schedule" target="_blank" rel="noopener">Agenda oficial ↗</a>
     </div>
     <div class="hero-copy">
-      <div class="eyebrow">PERSONAL PLANNER · WTC BARCELONA</div>
-      <h1>Decide dónde estar.<br><em>No qué leer.</em></h1>
+      <div class="eyebrow">LA AGENDA DE @RENECORTELO · WTC BARCELONA</div>
+      <h1>Decide dónde estar.<br><em>Según lo que te importa.</em></h1>
       <p>Agenda presencial por hora y stage, con conflictos visibles, prioridad personalizada, favoritos y tu propia selección.</p>
     </div>
     <div class="hero-meta">
-      <span>22–23 SEP 2026</span><span>166 SESIONES</span><span>7 ESPACIOS</span><span id="livePill">CEST</span>
+      <span>22–23 SEP 2026</span><span>166 SESIONES</span><span>7 ESPACIOS</span><span id="livePill">CEST</span><span class="personal-tag">HECHA PARA RENÉ</span>
     </div>
   </header>
 
   <main>
     <section class="commandbar">
-      <div class="days" role="tablist"><button class="day active" data-day="22">MAR 22</button><button class="day" data-day="23">MIÉ 23</button></div>
+      <div class="days" role="tablist"><button class="day active" data-day="22">MARTES 22</button><button class="day" data-day="23">MIÉRCOLES 23</button></div>
       <button id="nowBtn" class="control accent">◎ Ahora</button>
       <input id="search" type="search" placeholder="Buscar sesión, speaker, tema…" autocomplete="off" />
       <select id="stage"><option value="">Todos los stages</option></select>
+      <select id="type" aria-label="Tipo de sesión"><option value="">Todos los tipos</option></select>
       <button id="relevantBtn" class="control">🔥 Relevantes</button>
       <button id="suggestedBtn" class="control">◇ Ruta sugerida</button>
       <button id="myAgendaBtn" class="control">✓ Mi agenda</button>
@@ -47,11 +48,12 @@
     </section>
 
     <section class="desktop-board">
-      <div class="legend"><span><i class="l must"></i>MUST</span><span><i class="l high"></i>Muy relevante</span><span><i class="l good"></i>Relevante</span><span><i class="l base"></i>Contexto</span><span class="legend-note">Rosa = ruta sugerida · ✓ = tu agenda</span></div>
+      <div class="legend"><span class="recommended-key">★ Recomendada en ese horario</span><span><i class="l must"></i>MUST</span><span><i class="l high"></i>Muy relevante</span><span><i class="l good"></i>Relevante</span><span><i class="l base"></i>Contexto</span><span class="legend-note">Contorno coral = ruta sugerida · ✓ = tu agenda</span></div>
       <div id="board" class="board"></div>
     </section>
 
     <section id="mobileList" class="mobile-list"></section>
+    <footer class="site-footer"><span>AI SUMMIT BCN 26 · PLAN PERSONAL</span><strong>Hecha para René · @renecortelo</strong><span>Agenda personal no oficial</span></footer>
   </main>
 
   <div id="scrim" class="scrim"></div>
@@ -59,6 +61,7 @@
   <div id="toast" class="toast" aria-live="polite"></div>
 
   <script src="data.js"></script>
+  <script src="details.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
