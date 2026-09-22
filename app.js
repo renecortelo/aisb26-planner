@@ -25,6 +25,8 @@ function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show')
 function render(){
   $$('.day').forEach(x=>x.classList.toggle('active',+x.dataset.day===state.day));
   $('#relevantBtn').classList.toggle('active',state.relevant);$('#suggestedBtn').classList.toggle('active',state.suggested);$('#myAgendaBtn').classList.toggle('active',state.myAgenda);$('#favBtn').classList.toggle('active',state.favorites);
+  const view=state.suggested?'route':state.myAgenda?'mine':state.favorites?'favorites':'agenda';
+  $$('[data-mobile-view]').forEach(x=>{const active=x.dataset.mobileView===view;x.classList.toggle('active',active);x.setAttribute('aria-pressed',String(active))});
   const F=filtered();$('#count').textContent=`${F.length} ${F.length===1?'sesión':'sesiones'} · ${store.selected.size} en tu agenda · ${store.fav.size} ${store.fav.size===1?'favorita':'favoritas'}`;
   $('#topPicks').innerHTML=topPicks(F).map((s,i)=>{const r=recommendation(s);return `<button class="pick" data-open="${s.id}"><div class="pick-rank">#${i+1} · ${tier(s)}</div><div class="pick-title">${esc(clean(s.title))}</div><div class="pick-meta">${s.start} · ${esc(s.stage)} · #${r.rank}/${r.count} activas a esa hora</div></button>`}).join('');
   renderBoard(F);renderMobile(F); bindOpen(); updateLivePill();
@@ -56,6 +58,12 @@ function closeDrawer(){$('#drawer').classList.remove('open');$('#scrim').classLi
 function bindOpen(){document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openDrawer(+el.dataset.open)}))}
 function goNow(){const n=nowParts();if(n.month!==9||![22,23].includes(n.day)){toast('El modo Ahora se activa durante el evento');return}state.day=n.day;render();const candidates=S.filter(s=>s.day===n.day&&s.startMin<=n.min&&n.min<s.endMin).sort((a,b)=>b.score-a.score);if(candidates[0]){openDrawer(candidates[0].id);toast(`Ahora: ${candidates.length} sesiones activas`)}else{const next=S.filter(s=>s.day===n.day&&s.startMin>=n.min).sort((a,b)=>a.startMin-b.startMin)[0];if(next){openDrawer(next.id);toast('Te muestro la siguiente sesión')}}}
 function updateLivePill(){const n=nowParts();const active=n.month===9&&[22,23].includes(n.day);$('#livePill').textContent=active?'● EVENTO EN CURSO':'BARCELONA · CEST';$('#livePill').style.color=active?'var(--lime)':''}
+function mobileView(view){
+ state.suggested=view==='route';state.myAgenda=view==='mine';state.favorites=view==='favorites';state.relevant=false;
+ $('#search').value='';$('#stage').value='';$('#type').value='';
+ render();$('#mobileList').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$$('[data-mobile-view]').forEach(b=>b.onclick=()=>mobileView(b.dataset.mobileView));$('#mobileNowBtn').onclick=goNow;
 $$('.day').forEach(b=>b.onclick=()=>{state.day=+b.dataset.day;render()});$('#search').oninput=render;$('#stage').onchange=render;$('#type').onchange=render;$('#relevantBtn').onclick=()=>{state.relevant=!state.relevant;render()};$('#suggestedBtn').onclick=()=>{state.suggested=!state.suggested;render()};$('#myAgendaBtn').onclick=()=>{state.myAgenda=!state.myAgenda;render()};$('#favBtn').onclick=()=>{state.favorites=!state.favorites;render()};$('#nowBtn').onclick=goNow;$('#scrim').onclick=closeDrawer;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
 $('#stage').innerHTML='<option value="">Todos los stages</option>'+stages.map(x=>`<option>${x}</option>`).join('');
 $('#type').innerHTML='<option value="">Todos los tipos</option>'+types.map(x=>`<option>${esc(x)}</option>`).join('');
